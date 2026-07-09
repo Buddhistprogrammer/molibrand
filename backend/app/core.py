@@ -2,10 +2,10 @@
 from datetime import datetime, timedelta, timezone
 from typing import Annotated
 
+import bcrypt
 import jwt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from passlib.context import CryptContext
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -13,18 +13,17 @@ from app.config import settings
 from app.db.session import get_db
 from app.models import User
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 bearer = HTTPBearer(auto_error=False)
 
-
+# bcrypt 上限 72 字节，超长截断（直接用 bcrypt 库，passlib 已停止维护且与新版 bcrypt 不兼容）
 def hash_password(plain: str) -> str:
-    return pwd_context.hash(plain)
+    return bcrypt.hashpw(plain.encode("utf-8")[:72], bcrypt.gensalt()).decode("utf-8")
 
 
 def verify_password(plain: str, hashed: str) -> bool:
     try:
-        return pwd_context.verify(plain, hashed)
-    except ValueError:
+        return bcrypt.checkpw(plain.encode("utf-8")[:72], hashed.encode("utf-8"))
+    except (ValueError, TypeError):
         return False
 
 

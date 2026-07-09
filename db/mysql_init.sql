@@ -105,5 +105,5 @@ CREATE TABLE IF NOT EXISTS audit_logs (
 -- ---------- 种子数据：默认管理员/审核员（密码见 README，务必上线前修改） ----------
 -- 密码 hash 对应明文 "admin123"（bcrypt），仅供本地开发
 INSERT INTO users (phone, nickname, password_hash, role, plan, quota_left)
-VALUES ('13800000000', '茉莉总', '$2b$12$e0MYzXyjpJS7Pd0RVvHwHe1Hpq5cQ2q5oQ9r0bkYq6oQZ6oQZ6oQ', 'admin', 'annual', 999)
+VALUES ('13800000000', '茉莉总', '$2b$12$..I2Ve4gG/.p64TZ.EA9eubpXd2kKI6/DQzgrYjPJE3yOjBhotjjq', 'admin', 'annual', 999)
 ON DUPLICATE KEY UPDATE phone = phone;
