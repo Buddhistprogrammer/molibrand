@@ -1,0 +1,22 @@
+# Web 框架
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+pydantic==2.10.4
+pydantic-settings==2.7.1
+
+# 数据库
+sqlalchemy[asyncio]==2.0.36
+asyncmy==0.2.10          # MySQL 异步驱动
+asyncpg==0.30.0          # PostgreSQL 异步驱动
+
+# 鉴权
+pyjwt==2.10.1
+passlib[bcrypt]==1.7.4
+
+# 大模型 / HTTP
+openai==1.59.6           # 兼容 DashScope compatible-mode
+httpx==0.28.1
+
+# 阿里云 OSS / STS（可选，缺失时降级 mock）
+alibabacloud-sts20150401==1.1.4
+alibabacloud-tea-openapi==0.3.12
